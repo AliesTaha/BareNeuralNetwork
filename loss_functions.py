@@ -41,3 +41,17 @@ class Activation_Softmax_Loss_CategoricalCrossentropy(Loss):
     def __init__(self):
         self.activation = Activation_Softmax()
         self.loss = Loss_Categorical_Cross_Entropy()
+
+    def forward(self, inputs, y_true):
+        self.activation.forward(inputs)
+        self.output = self.activation.output
+        self.loss_val = self.loss.calculate(self.output, y_true)
+        return self.loss_val
+
+    def backward(self, dvalues, y_true):
+        samples = len(dvalues)
+        if len(y_true.shape) == 2:
+            y_true = np.argmax(y_true, axis=1)
+        self.dinputs = dvalues.copy()
+        self.dinputs[range(samples), y_true] -= 1
+        self.dinputs = self.dinputs/samples
