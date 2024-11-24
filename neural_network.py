@@ -1,85 +1,49 @@
 import numpy as np
 import nnfs
 from nnfs.datasets import spiral_data
-from dense_layer import Dense_Layer
-from activation_functions import Activation_Relu, Activation_Softmax
-from loss_functions import Loss_Categorical_Cross_Entropy
+from dense_layer import *
+from activation_functions import *
+from loss_functions import *
 
 # Initialize the nnfs library, which sets the random seed and other configurations for reproducibility
 nnfs.init()
 
 X, y = spiral_data(samples=100, classes=3)
-loss_function = Loss_Categorical_Cross_Entropy()
 
-print(X)
-
+# 1st dense layer created with an activation relu function following it
 dense1 = Dense_Layer(2, 3)
-dense1.forward(X)
 activation1 = Activation_Relu()
-activation1.forward(dense1.output)
-print(activation1.output)
-print("--" * 20)
 
+# 2nd dense layer created with an activation softmax function following it
+# but instead of an activation softmax and a loss function, we will combine the 2
+# to make one final output layer (loss+activation)
 dense2 = Dense_Layer(3, 3)
+loss_activation = Activation_Softmax_Loss_CategoricalCrossentropy()
+
+# forward pass 1
+dense1.forward(X)
+activation1.forward(dense1.output)
+
+# forward pass 2
 dense2.forward(activation1.output)
-print(dense2.output)
-print("--" * 20)
 
-activation2 = Activation_Softmax()
-activation2.forward(dense2.output)
+# forward pass (activation and loss function)
+# output of 2nd layer-> returns loss
+# stores activation output
+loss = loss_activation.forward(dense2.output, y)
 
-print(activation2.output)
-print("--" * 20)
-
-print("This is y")
-print(y)
-total_loss = loss_function.calculate(activation2.output, y)
-print("---" * 20)
-print("This is loss")
-print(loss_function.sample_losses)
-
-y_pred = np.argmax(activation2.output, axis=1)
+predictions = np.argmax(loss_activation.output, axis=1)
 if len(y.shape) == 2:
     y = np.argmax(y, axis=1)
-accuracy = np.mean(y_pred == y)
+accuracy = np.mean(predictions == y)
 
-print(total_loss)
-print(accuracy)
+print(f'acc: {accuracy:.3f}')
 
-'''
-In general, the loss function should follow a specific pattern:
-total_loss=np.mean(loss)
-loss=-np.log(probabilities_predicted_for_correct_class)
+# Backward pass
+loss_activation.backward(loss_activation.output, y)
+dense2.backward(loss_activation.dinputs)
+activation1.backward(dense2.dinputs)
+dense1.backward(activation1.dinputs)
 
-probabilities_predicted_for_correct_class should be 
-[0.1, 0.2, 0.3, 0.1, 0.2, 0.2] etc not
-
-[[0,0,0.1],
-[0,0,0.2],
-[0,0,0.3],
-[0,0,0.1],
-[0,0,0.2],
-[0,0,0.2]]
-
-so we do
-probabilities_predicted_for_correct_class=np.sum((y*y_hat), axis=1)
-
-where y is one-hot encoded
-
-so how do we get y_hat?
-
-y_hat=np.exp(output)/np.sum(np.exp(output), axis=1, keepdims=True)
-that is, we convert the output to a probability distribution by exponentiating and then normalizing, such that the sum of each row is 1.
-
-finally, output is simple, it is just
-
-layer_output1=np.dot(X, w)+b
-output1=np.maximum(layer_output1, 0)
-
-layer_output2=np.dot(output1, w)+b
-output2=np.maximum(layer_output2, 0)
-
-layer_output3=np.dot(output2, w)+b
-output=layer_output3
-
-'''
+# Now, we can adjust weights and biases, lowering loss.
+# This is the job of the optimizer (adjusting weights and biases using gradients to decrease loss)
