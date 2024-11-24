@@ -14,9 +14,11 @@ This is a bare-metal implementation of neural networks. In 2 weeks, I decided to
   - **Optimization Techniques**: Strategies to improve learning efficiency.
 
 ## Pre-Requisites
+
 ```
 pip install numpy
 ```
 
 ## Acknowledgments
+
 This project is inspired by the book Neural Networks from Scratch in Python by Harrison Kinsley and Daniel Kukieła. Their work provided a foundational understanding and motivated the development of this hands-on implementation.

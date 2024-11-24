@@ -5,6 +5,9 @@ from dense_layer import Dense_Layer
 from activation_functions import Activation_Relu, Activation_Softmax
 from loss_functions import Loss_Categorical_Cross_Entropy
 
+# Initialize the nnfs library, which sets the random seed and other configurations for reproducibility
+nnfs.init()
+
 X, y = spiral_data(samples=100, classes=3)
 loss_function = Loss_Categorical_Cross_Entropy()
 
@@ -43,31 +46,6 @@ accuracy = np.mean(y_pred == y)
 print(total_loss)
 print(accuracy)
 
-dvalues = np.array([[1., 1., 1.]])
-
-print('-' * 20 + 'New section on back propagation' + '-' * 20)
-dvalues = np.array([
-    [1., 1., 1.],
-    [2., 2., 2.],
-    [3., 3., 3.]
-])
-weights = np.array(
-    [
-        [0.2, 0.8, -0.5, 1],
-        [0.5, -0.91, 0.26, -0.5],
-        [-0.26, -0.27, 0.17, 0.87]
-    ]).T
-dinputs = np.dot(dvalues, weights.T)
-print(dinputs)
-
-dvalues = np.array([[1., 1., 1.],
-                    [2., 2., 2.],
-                    [3., 3., 3.]])
-inputs = np.array([[1, 2, 3, 2.5],
-                   [2., 5., -1., 2],
-                   [-1.5, 2.7, 3.3, -0.8]])
-dweights = np.dot(inputs.T, dvalues)
-print(dweights)
 '''
 In general, the loss function should follow a specific pattern:
 total_loss=np.mean(loss)
