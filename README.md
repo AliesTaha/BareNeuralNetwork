@@ -1,6 +1,6 @@
-# Neural Networks from Scratch in Python
+# Bare Metal Neural Network
 
-Welcome to my **Neural Networks from Scratch in Python** project! This repository showcases a bare-metal implementation of neural networks, constructed without the aid of external deep learning libraries. By building each component from the ground up, I've aimed to demystify the inner workings of neural networks and provide a transparent view of their mechanics.
+This is a bare-metal implementation of neural networks. In 2 weeks, I decided to take on the challenge of building my own neural network from scratch—no libraries, no frameworks, no shortcuts. Raw Python. Pure math. One line at a time. Constructed without external libraries. By building each component from the ground up, I've aimed to demystify the workings of neural networks and provide a transparent view of their mechanics.
 
 ## Technical Overview
 
@@ -12,3 +12,11 @@ Welcome to my **Neural Networks from Scratch in Python** project! This repositor
   - **Loss Calculations**: Methods to evaluate network performance.
   - **Backpropagation**: Algorithm for training the network through error correction.
   - **Optimization Techniques**: Strategies to improve learning efficiency.
+
+## Pre-Requisites
+```
+pip install numpy
+```
+
+## Acknowledgments
+This project is inspired by the book Neural Networks from Scratch in Python by Harrison Kinsley and Daniel Kukieła. Their work provided a foundational understanding and motivated the development of this hands-on implementation.
