@@ -39,8 +39,9 @@ class Loss:
 class Loss_Categorical_Cross_Entropy(Loss):
     def forward(self, y_pred, y_true):
         y_pred_clipped = np.clip(y_pred, 1e-7, 1-1e-7)
-        if (len(y_true.shape) == 1):
+        if (len(y_true.shape) == 1):  # this is just the true class
             confidences = y_pred_clipped[range(len(y_pred)), y_true]
+        # this is one hot encoded. our predictions are also one hot encoded.
         elif (len(y_true.shape) == 2):
             y_hat = y_pred_clipped*y_true
             confidences = np.sum(y_hat, axis=1)
@@ -94,16 +95,33 @@ print(accuracy)
 dvalues = np.array([[1., 1., 1.]])
 
 print('-'*20+'New section on back propagation'+'-'*20)
-dvalues = np.array([[1., 1., 1.]])
+dvalues = np.array([
+    [1., 1., 1.],
+    [2., 2., 2.],
+    [3., 3., 3.]
+])
 weights = np.array(
-    [[0.2, 0.8, -0.5, 1], [0.5, -0.91, 0.26, -0.5], [-0.26, -0.27, 0.17, 0.87]]).T
-dx0 = sum(weights[0]*dvalues[0])
-dx1 = sum(weights[1]*dvalues[0])
-dx2 = sum(weights[2]*dvalues[0])
-dx3 = sum(weights[3]*dvalues[0])
-dinputs = np.array([dx0, dx1, dx2, dx3])
+    [
+        [0.2, 0.8, -0.5, 1],
+        [0.5, -0.91, 0.26, -0.5],
+        [-0.26, -0.27, 0.17, 0.87]
+    ]).T
+dinputs = np.dot(dvalues, weights.T)
 print(dinputs)
 
+# Passed in gradient from the next layer
+# for the purpose of this example we're going to use an array of incremental gradient values
+dvalues = np.array([[1., 1., 1.],
+                    [2., 2., 2.],
+                    [3., 3., 3.]])
+# We have 3 sets of inputs - samples
+inputs = np.array([[1, 2, 3, 2.5],
+                   [2., 5., -1., 2],
+                   [-1.5, 2.7, 3.3, -0.8]])
+# sum weights of given input
+# and multiply by the passed in gradient for this neuron
+dweights = np.dot(inputs.T, dvalues)
+print(dweights)
 '''
 In general, the loss function should follow a specific pattern:
 total_loss=np.mean(loss)
