@@ -19,6 +19,10 @@ This is a bare-metal implementation of neural networks. In 2 weeks, I decided to
 pip install numpy
 ```
 
+## Walk-through
+
+The best way to understanding the inner workings of a neural network is by running through an example. Let us do so.
+
 ## Acknowledgments
 
 This project is inspired by the book Neural Networks from Scratch in Python by Harrison Kinsley and Daniel Kukieła. Their work provided a foundational understanding and motivated the development of this hands-on implementation.
