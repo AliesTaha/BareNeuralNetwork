@@ -42,6 +42,13 @@ This neuron takes one input sample with 3 features (`x[0]`, `x[1]`, `x[2]`) and 
 3. **ReLU activation**:
    - `Output = max(0, z)`
 
+This completes a full forward pass. The derivatives with respect to the weights and bias will indicate their influence and will be utilized to adjust these weights and bias.
+
+To find the derivative with respect to a single input, say `x_0`, we do,
+$$
+\frac{dReLU()}{dsum()} \cdot \frac{\partial sum()}{\partial mul(x_0, w_0)} \cdot \frac{\partial mul(x_0, w_0)}{\partial x_0}
+$$
+
 ## Acknowledgments
 
 This project is inspired by the book Neural Networks from Scratch in Python by Harrison Kinsley and Daniel Kukieła. Their work provided a foundational understanding and motivated the development of this hands-on implementation.
