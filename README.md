@@ -29,49 +29,18 @@ However, before we do, it is important to understand back-propagation. And, back
 
 ### Single Neuron Computation
 
-This neuron takes in **one input sample** with 3 features (\(x[0]\), \(x[1]\), \(x[2]\)) and uses 3 corresponding weights (\(w[0]\), \(w[1]\), \(w[2]\)) to compute the output. The neuron performs:
+This neuron takes one input sample with 3 features (`x[0]`, `x[1]`, `x[2]`) and uses 3 corresponding weights (`w[0]`, `w[1]`, `w[2]`) to compute the output. The neuron performs:
 
 1. **Three multiplications**:
-   \[
-   p_0 = x[0] \cdot w[0], \quad p_1 = x[1] \cdot w[1], \quad p_2 = x[2] \cdot w[2]
-   \]
+   - `p_0 = x[0] * w[0]`
+   - `p_1 = x[1] * w[1]`
+   - `p_2 = x[2] * w[2]`
 
-2. **One addition** (including the bias \(b\)):
-   \[
-   z = p_0 + p_1 + p_2 + b
-   \]
+2. **One addition** (including the bias `b`):
+   - `z = p_0 + p_1 + p_2 + b`
 
 3. **ReLU activation**:
-   \[
-   \text{Output} = \max(0, z)
-   \]
-
-#### Example
-
-Using the values from the diagram:
-
-- Inputs: \(x[0] = 1.0\), \(x[1] = -2.0\), \(x[2] = 3.0\)
-- Weights: \(w[0] = -3.0\), \(w[1] = -1.0\), \(w[2] = 2.0\)
-- Bias: \(b = 1.0\)
-
-The computation steps are:
-
-1. Multiply:
-   \[
-   p_0 = 1.0 \cdot (-3.0) = -3.0, \quad p_1 = -2.0 \cdot (-1.0) = 2.0, \quad p_2 = 3.0 \cdot 2.0 = 6.0
-   \]
-
-2. Add:
-   \[
-   z = (-3.0) + 2.0 + 6.0 + 1.0 = 6.0
-   \]
-
-3. Apply ReLU:
-   \[
-   \text{Output} = \max(0, 6.0) = 6.0
-   \]
-
-This neuron produces an output of **6.0** after applying the ReLU activation.
+   - `Output = max(0, z)`
 
 ## Acknowledgments
 
