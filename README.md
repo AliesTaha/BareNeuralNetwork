@@ -29,6 +29,7 @@ However, before we do, it is important to understand back-propagation. And, back
 
 ### Single Neuron Computation
 
+The code here is found in `one_neuron_backprop.py`
 This neuron takes one input sample with 3 features (`x[0]`, `x[1]`, `x[2]`) and uses 3 corresponding weights (`w[0]`, `w[1]`, `w[2]`) to compute the output. The neuron performs:
 
 1. **Three multiplications**:
@@ -45,9 +46,43 @@ This neuron takes one input sample with 3 features (`x[0]`, `x[1]`, `x[2]`) and 
 This completes a full forward pass. The derivatives with respect to the weights and bias will indicate their influence and will be utilized to adjust these weights and bias.
 
 To find the derivative with respect to a single input, say `x_0`, we do,
-$$
-\frac{dReLU()}{dsum()} \cdot \frac{\partial sum()}{\partial mul(x_0, w_0)} \cdot \frac{\partial mul(x_0, w_0)}{\partial x_0}
-$$
+
+`(dReLU / dsum) * (∂sum / ∂mul(x0, w0)) * (∂mul(x0, w0) / ∂x0)`
+
+Let us assume here that the neuron has a gradient of 1 from the next layer. This means that
+
+- The derivative of the cost wrt the relu activation is 1. The impact of the neuron on the cost is 1.
+- Relu's derivative is 1 if input>0, else 0. Here, z is 6, so derivative of Relu is 1.
+- So, chain rule, the impact of the z on the cost is 1.
+- Knowing that the effect of the weights on z = input, and the effect of inputs on z is the weights
+- We can know exactly what the partial derivative of dcost_dw is. It's simply dz_dw x drelu_dz x dcost_drelu where dz_dw is simply the input feature matrix
+- Why do dcost_dinput? This helps us know how much we want to reduce the inputs that we were fed, the activations of the previous layer.
+
+Ok...so that was easy enough. But its useless honestly. Why reduce the relu output of one neuron. Ok, fair enough. Let's up it one notch. Let's set a list of 3 samples for input. Each sample has 4 features. We're talking
+
+### Multiple Neuron Computation
+
+The code here is found in `multiple_neurons_backprop.py`
+This example will use 3 input samples, each with 4 features (`x[0]`, `x[1]`, `x[2]`, `x[3]`) and 4 corresponding weights (`w[0]`, `w[1]`, `w[2]`, `w[3]`) per neuron.
+
+The network can therefore be treated as the following. A 4-neuron input layer, where each neuron corresponds with an input feature, that will be fed 3 samples. Thus, the first matrix is a 3x4. The second hidden layer is a 4x3. That is, it has 4 weights per neuron, and 3 neurons total. The final layer is then just one neuron, taking in a 3x3 matrix, so it must have 3 weights, for a final matrix output of 3x1.
+
+So the inputs for the first layer looks like
+[ a b c d
+  e f g h
+  i j k l]
+
+and the weights of the hidden layer will look like
+[a d i
+ b f j
+ c g k
+ d h l]
+
+ and the final layer
+[a
+ b
+ c
+]
 
 ## Acknowledgments
 
