@@ -67,21 +67,33 @@ This example will use 3 input samples, each with 4 features (`x[0]`, `x[1]`, `x[
 
 The network can therefore be treated as the following. A 4-neuron input layer, where each neuron corresponds with an input feature, that will be fed 3 samples. Thus, the first matrix is a 3x4. The second hidden layer is a 4x3. That is, it has 4 weights per neuron, and 3 neurons total. The final layer is then just one neuron, taking in a 3x3 matrix, so it must have 3 weights, for a final matrix output of 3x1.
 
-So the inputs for the first layer looks like:
-a b c d
-e f g h
-i j k l
+So the inputs for the first layer looks like
 
-and the weights of the hidden layer will look like:
-a d i
-b f j
-c g k
-d h l
+```python
+[
+    [a, b, c, d],
+    [e, f, g, h],
+    [i, j, k, l]
+]
+```
 
-and the final layer:
-a
-b
-c
+and the weights of the hidden layer will look like
+
+```
+[a d i
+ b f j
+ c g k
+ d h l]
+```
+
+ and the final layer
+
+ ```
+[a
+ b
+ c
+]
+```
 
 ## Acknowledgments
 
