@@ -98,6 +98,24 @@ and the weights of the hidden layer will look like
 ]
 ```
 
+Let's focus on the input layer and hidden layer. Let's focus on the 1st neuron of the input layer and hidden layer. The 1st neuron will receive, during backprop, a vector of 4 values from the hidden layer. The gradient, the list of partial derivatives, the weights. We need to sum this value, since we can only have one final nudge to use against the activation of this neuron.
+
+What about the list of all neurons in the input layer? Well, we know that each neuron in the hidden layer outputs a gradient of partial derivatives with respect to its inputs. That is, the weights. We also know the weights are transposed. So we sum the rows since the weights are of the form
+
+```
+[
+   w_00 w_01 w_02
+   w_10 w_11 w_12
+   w_20 w_21 w_22
+   w_30 w_31 w_32
+]
+```
+
+where for w_xy, the x is the neuron in the previous layer, and y is the neuron in the current layer.
+As a result, we need to sum -> row-wise. That is, w_00 + w_01 + w_02, so that we can have the overall dC_dactivation of the, 0th neuron in the previous layer.
+
+And since since we need the sum of the vector of the derivatives for each neuron, since each neuron has multiple paths of influence on the network.
+
 ## Acknowledgments
 
 This project is inspired by the book Neural Networks from Scratch in Python by Harrison Kinsley and Daniel Kukieła. Their work provided a foundational understanding and motivated the development of this hands-on implementation.
