@@ -70,11 +70,9 @@ The network can therefore be treated as the following. A 4-neuron input layer, w
 So the inputs for the first layer looks like
 
 ```python
-[
-    [a, b, c, d],
-    [e, f, g, h],
-    [i, j, k, l]
-]
+[a, b, c, d
+ e, f, g, h
+ i, j, k, l]
 ```
 
 and the weights of the hidden layer will look like
