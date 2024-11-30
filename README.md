@@ -25,9 +25,12 @@ pip install numpy
 ## Walk-through
 
 The best way to understanding the inner workings of a neural network is by running through an example. Let us do so.
+
+### Back Propagation
+
 However, before we do, it is important to understand back-propagation. And, back-propagation is complex. So let us begin by a fake example of back-propagation. Minimizing the output of one neuron, which is going to take one input, of 3 features.
 
-### Single Neuron Computation
+#### Single Neuron Computation
 
 The code here is found in `one_neuron_backprop.py`
 This neuron takes one input sample with 3 features (`x[0]`, `x[1]`, `x[2]`) and uses 3 corresponding weights (`w[0]`, `w[1]`, `w[2]`) to compute the output. The neuron performs:
@@ -60,7 +63,7 @@ Let us assume here that the neuron has a gradient of 1 from the next layer. This
 
 Ok...so that was easy enough. But its useless honestly. Why reduce the relu output of one neuron. Ok, fair enough. Let's up it one notch. Let's set a list of 3 samples for input. Each sample has 4 features. We're talking
 
-### Multiple Neuron Computation
+#### Multiple Neuron Computation
 
 The code here is found in `multiple_neurons_backprop.py`
 
