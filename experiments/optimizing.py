@@ -3,6 +3,7 @@ from nnfs.datasets import spiral_data
 from activation_functions import *
 from loss_functions import *
 from dense_layer import *
+from optimizers import *
 
 nnfs.init()
 X, y = spiral_data(samples=100, classes=3)
@@ -16,3 +17,5 @@ activation1 = Activation_Relu()
 dense2 = Dense_Layer(64, 3)
 # Create Softmax classifier's combined loss and activation
 loss_activation = Activation_Softmax_Loss_CategoricalCrossentropy()
+
+optimizer = Optimizer_SGD(learning_rate=1e-3)
