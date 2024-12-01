@@ -1,7 +1,8 @@
 import numpy as np
 
-
 # dense layer
+
+
 class Dense_Layer:
     def __init__(self, n_inputs, n_neurons):
         self.weights_unscaled = np.random.randn(n_inputs, n_neurons)
