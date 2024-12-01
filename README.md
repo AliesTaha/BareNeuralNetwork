@@ -198,7 +198,70 @@ and the derivative of the CCE loss function, given that it's just -1 x y x log(y
 
 The derivative of the relu activation function is just one for all outputs >0 , and 0 else. But what about the last layer's activation, the softmax activation?
 
-<img src="https://latex.codecogs.com/gif.latex?S_{i,j}=\frac{e^{z_{i,j}}}{\sum_{l=1}^L&space;e^{z_{i,l}}}&space;\quad&space;\to&space;\quad&space;\frac{\partial&space;S_{i,j}}{\partial&space;z_{i,k}}=\frac{\partial\left(\frac{e^{z_{i,j}}}{\sum_{l=1}^L&space;e^{z_{i,l}}}\right)}{\partial&space;z_{i,k}}" />
+The softmax activation is just e^ij / sum of e^ij for all j's of an ith sample. How do we find the derivative of this, with respect to e^ik?
+
+Basically, we will do a bunch of derivatives, for two cases, one for when j=k, one for when j!=k. We end up with
+the derivative of S_ij, the probability output for the j_th class of the i_th sample, with respect to z_i,j, the raw logit (probability) score of the jth class of the ith sample, is:
+dS_ij/dz_ik= S_ij(1-S_i,k) for j=k
+dS_ij/dz_ik= S_ij(0- S_i,k)for j!=k
+
+And given a delta function δ_ij=1 for j=k, else 0, we can write this in one line as
+dS_ij/dz_ik=S_ij(δ_ij-S_ik)
+
+It is important to note, that the SoftMax function is a function that takes in vector inputs, and instead of outputting a single output (that way, it's just a gradient), it actually gives a vector output.
+
+```py
+z=[1,2,3]
+s=[e^1/(e^1+e^2+e^3), e^2/(e^1+e^2+e^3), e^3/(e^1+e^2+e^3)]
+```
+
+As such, this function doesn't have a gradient, it has a jacobian. I'm not going to fully explain what the jacobian matrix is in this README, because it has been explained online by people orders of magnitude more intelligent than myself, but I'll try to give a quick summary.
+
+In the above case, the ds/dz, the derivative of the softmax with respect to the output will be nothing other than:
+
+```py
+[
+   [ds1/dz1, ds1/dz2, ds1/dz3],
+   [ds2/dz1, ds2/dz2, ds2/dz3],
+   [ds3/dz1, ds3/dz2, ds3/dz3]
+]
+#And so, to give these numbers, let us suppose that the outputs, s, are 
+s=[0,7, 0.1, 0.2]
+#Then, the derivate dSj/dZk being equal to Sj*(1-Sj) if j=k
+#                                          Sj*(0-Sk) if j!=k
+'''
+   [dS1/dz1, dS1/dz2, dS1/dz3],
+   [dS2/dz1, dS2/dz2, dS2/dz3],
+   [dS3/dz1, dS3/dz2, dS3/dz3]
+'''
+[
+   [0.7,  0,    0 ],
+   [0,    0.1,  0 ],
+   [0,    0,    0.2]
+]
+# - 
+[
+   (0.7*0.7), (0.7*0.1), (0.7*0.2)],
+   [(0.1*0.7), (0.1*0.1), (0.1*0.2)],
+   [(0.2*0.7), (0.2*0.1), (0.2*0.2)
+]
+# to eventually get this
+[
+   [0.7-(0.7*0.7), 0-(0.7*0.1), 0-(0.7*0.2)],
+   [0-(0.1*0.7),    0.1-(0.1*0.1),  0-(0.1*0.2)],
+   [0-(0.2*0.7),    0-(0.2*0.1), 0.2-(0.2*0.2)]
+]
+```
+
+Check out the backprop classes of the activation functions for more detail.
+
+### A smart thing
+
+Was all the above necessary? I mean, none of this is necessary. We could've just done
+`import tensorflow as tf`
+or better yet, not do anything.
+
+In any case, the answer is no. We KNOW that the softmax activation layer is going to be used only for the last layer, and that it *will* be followed by a categorical cross entropy loss function. So why not combine the two functions, and take the derivative of cost wrt the 2 combined functions, cutting out the middle man? I mean, we know they're going to be chained together anyways.
 
 ## Acknowledgments
 
