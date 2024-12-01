@@ -174,12 +174,32 @@ I would want to do a_00*dc0/dn0 + a_10*dc1/dn0 + a_20 * dc2/dn0 to get the overa
 ]
 ```
 
-which is literally just me saying
+which is literally just me saying I want a 4x3 matrix, given a 3x4 input matrix and 3x3 activations matrix:
+dweights= np.dot(inputs.T, dinputs (the passed in vector from the next layer))
+
+I mean think about it. All that does is say multiply the activation of neuron 1, layer 1 (this is the derivative of output of neuron 1, layer 2, wrt weight_1), by the derivative of cost wrt the output of neuron 1, layer 2, summed up for all samples, to get the overall derivative of cost wrt the weight 1 of neuron 1, layer 2. Repeat this for all weights ->, for all neurons ... simple enough.
 
 ```py
 np.dot((activations.T), dvalues)
 #where dvalues here are just the derivative of the cost with respect to the output of the neurons in the layer for whose weights #we are doing all this
 ```
+
+### Loss Function and Back Prop
+
+I used a Categorical Cross-Entropy Loss function, not a MSE loss function. Why? Because this is not a regression NN, this is a classification network. It's outputting a probability distrbution. CCE is used for comparing ground truth probability to predicted probability. Basically, it's the total sum of y_{i,j}*log(y_hat_{i,j}) for all j's (all neurons in the output layer), for one i, or one sample. Noting that the ground truth is 1 for only one neuron, and zero for the rest, the summation can be shortened into L_i= -log(y_hat_i,k), where k is the index of the true probability. Why -? Well, assuming that the base of the log is e, the ln(1)=0, or 0 loss for a 100% certainty. Everything lower than 1, is punished...severely, with a negative number. ln(0) is a loss of, negative infinity. So loss must be multiplied by a negative factor in order to make sense. This is especially true when the final output layer has a SoftMax Activation. That is:
+$$
+\sigma(z)_i = \frac{e^{z_i}}{\sum_{j=1}^{n} e^{z_j}}
+$$
+so that the total outputs of all the neurons' sum is 1.
+
+and the derivative of the CCE loss function, given that it's just -1 x y x log(y_hat), is -y/y_hat.
+
+### Activation Functons and Backprop
+
+The derivative of the relu activation function is just one for all outputs >0 , and 0 else. But what about the last layer's activation, the softmax activation?
+$$
+S_{i,j} = \frac{e^{z_{i,j}}}{\sum_{l=1}^L e^{z_{i,l}}} \quad \to \quad \frac{\partial S_{i,j}}{\partial z_{i,k}} = \frac{\partial \left( \frac{e^{z_{i,j}}}{\sum_{l=1}^L e^{z_{i,l}}} \right)}{\partial z_{i,k}}
+$$
 
 ## Acknowledgments
 
