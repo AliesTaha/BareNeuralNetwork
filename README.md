@@ -268,6 +268,8 @@ The math is simple really. We try to do dC/dz_ik= dC/dSxdS/dz, where s is y_hat.
 
 dL_i/dz_ik = y_hat_ik - y_ik
 
+THIS IS INSANE. THIS IS LITERALLY INSANE. ALL THAT WORK WE DID, WAS FOR NOTHING, no I'm just kidding. But really, given that the softmax activation function is literally stuck to the categorical cross entropy loss, just combine the 2 layers, and the derivative with respect to the straight z outputs of the neurons in backprop is just y_pred-y_true. Boom. Multiple times faster to compute. Literally so easy.
+
 ## Acknowledgments
 
 This project is inspired by the book Neural Networks from Scratch in Python by Harrison Kinsley and Daniel Kukieła. Their work provided a foundational understanding and motivated the development of this hands-on implementation. The math intuition would not have been possible without the great work of 3B1B.
