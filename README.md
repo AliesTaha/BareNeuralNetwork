@@ -8,7 +8,7 @@ This is a bare-metal implementation of neural networks. I decided to take on the
 ## Technical Overview
 
 - **Pure Python Implementation**: The entire neural network is developed using Python, ensuring clarity and simplicity in understanding the foundational concepts.
-- **NumPy Integration**: While the core implementation avoids third-party libraries, NumPy is incorporated in later stages to enhance numerical computations and performance.
+- **NumPy Integrati``on**: While the core implementation avoids third-party libraries, NumPy is incorporated in later stages to enhance numerical computations and performance.
 - **Modular Design**: The project is structured into distinct modules, each representing a fundamental aspect of neural networks, including:
   - **Neurons and Layers**: Basic building blocks of the network.
   - **Activation Functions**: Implementations of various activation mechanisms.
@@ -245,6 +245,7 @@ s=[0,7, 0.1, 0.2]
    [(0.1*0.7), (0.1*0.1), (0.1*0.2)],
    [(0.2*0.7), (0.2*0.1), (0.2*0.2)
 ]
+#to get above, we simply do np.dot(s.reshape(-1,1), s.T)
 # to eventually get this
 [
    [0.7-(0.7*0.7), 0-(0.7*0.1), 0-(0.7*0.2)],
@@ -262,6 +263,10 @@ Was all the above necessary? I mean, none of this is necessary. We could've just
 or better yet, not do anything.
 
 In any case, the answer is no. We KNOW that the softmax activation layer is going to be used only for the last layer, and that it *will* be followed by a categorical cross entropy loss function. So why not combine the two functions, and take the derivative of cost wrt the 2 combined functions, cutting out the middle man? I mean, we know they're going to be chained together anyways.
+
+The math is simple really. We try to do dC/dz_ik= dC/dSxdS/dz, where s is y_hat. So we end up with dC/dy_hat x dy_hat/dz. We know that dc/dy_hat= derivative of -ylog(y_hat) summed over all j columns  = y/y_hat summed over all j columns. We know that dS/dz is S_ij x (1-S_ij) if j=j and S_ij*(-S_ij) otherwise. We multiply the two together, do math, and the final answer, the final derivative, the final
+
+dL_i/dz_ik = y_hat_ik - y_ik
 
 ## Acknowledgments
 

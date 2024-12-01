@@ -105,12 +105,3 @@ class Activation_Softmax_Loss_CategoricalCrossentropy(Loss):
         self.dinputs = dvalues.copy()
         self.dinputs[range(samples), y_true] -= 1
         self.dinputs = self.dinputs/samples
-
-
-loss = Loss_Categorical_Cross_Entropy()
-dvalues = np.array([[0.7, 0.1, 0.2],
-                    [0.1, 0.5, 0.4],
-                    [0.02, 0.9, 0.08]])
-y_true = np.array([0, 1, 1])
-loss.backward(dvalues, y_true)
-print(loss.dinputs)
