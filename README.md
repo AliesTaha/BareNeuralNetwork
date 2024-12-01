@@ -197,9 +197,7 @@ and the derivative of the CCE loss function, given that it's just -1 x y x log(y
 ### Activation Functons and Backprop
 
 The derivative of the relu activation function is just one for all outputs >0 , and 0 else. But what about the last layer's activation, the softmax activation?
-$$
-S_{i,j} = \frac{e^{z_{i,j}}}{\sum_{l=1}^L e^{z_{i,l}}} \quad \to \quad \frac{\partial S_{i,j}}{\partial z_{i,k}} = \frac{\partial \left( \frac{e^{z_{i,j}}}{\sum_{l=1}^L e^{z_{i,l}}} \right)}{\partial z_{i,k}}
-$$
+<img src="https://latex.codecogs.com/gif.latex?S_{i,j}=\frac{e^{z_{i,j}}}{\sum_{l=1}^L&space;e^{z_{i,l}}}&space;\quad&space;\to&space;\quad&space;\frac{\partial&space;S_{i,j}}{\partial&space;z_{i,k}}=\frac{\partial\left(\frac{e^{z_{i,j}}}{\sum_{l=1}^L&space;e^{z_{i,l}}}\right)}{\partial&space;z_{i,k}}" />
 
 ## Acknowledgments
 
