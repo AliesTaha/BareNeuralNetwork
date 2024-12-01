@@ -44,6 +44,7 @@ class Activation_Softmax:
             self.dinputs[index] = np.dot(jacobian_matrix, single_dvalues.T)
 
 
+'''
 soft = Activation_Softmax()
 soft.forward(np.array([
     [2, 1, 0.1]
@@ -59,6 +60,8 @@ S = np.array([0.7, 0.2, 0.1])
 dvalues = np.array([1.0, -1.0, 0.5])
 
 J = np.diag(S) - np.dot(S.reshape(-1, 1), S.reshape(1, -1))
+'''
+
 '''
 J =
 | ∂S₁/∂z₁ | ∂S₂/∂z₁ | ∂S₃/∂z₁ |
@@ -79,9 +82,11 @@ where dc/ds is dvalues
 and ds/dz is J
 
 dL/dz_1 = (dS_1/dz_1) * (dL/dS_1) + (dS_2/dz_1) * (dL/dS_2) + (dS_3/dz_1) * (dL/dS_3)
+'''
 
 '''
 dz_1 = (0.21 * 1.0) + (-0.14 * -1.0) + (-0.07 * 0.5)
 dz_2 = (-0.14 * 1.0) + (0.16 * -1.0) + (-0.02 * 0.5)
 dz_3 = (-0.07 * 1.0) + (-0.02 * -1.0) + (0.09 * 0.5)
 # np.array([dz_1, dz_2, dz_3])==np.dot(J, dvalues.T)
+'''

@@ -32,6 +32,11 @@ dense2.forward(activation1.output)
 # stores activation output
 loss = loss_activation.forward(dense2.output, y)
 
+# See the first few samples of the output of the softmax layer
+print(loss_activation.output[:5])
+print('loss:', loss)
+
+# See the predictions
 predictions = np.argmax(loss_activation.output, axis=1)
 if len(y.shape) == 2:
     y = np.argmax(y, axis=1)
@@ -47,3 +52,10 @@ dense1.backward(activation1.dinputs)
 
 # Now, we can adjust weights and biases, lowering loss.
 # This is the job of the optimizer (adjusting weights and biases using gradients to decrease loss)
+print("dweights and biases of dense1")
+print(dense1.dweights)
+print(dense1.dbiases)
+print('-'*10)
+print("dweights and biases of dense2")
+print(dense2.dweights)
+print(dense2.dbiases)

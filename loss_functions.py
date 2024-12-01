@@ -27,6 +27,10 @@ class Loss_Categorical_Cross_Entropy(Loss):
         return neg_log
 
     def backward(self, dvalues, y_true):
+        '''
+        dvalues is the derivative of the loss function with respect to the output of the softmax layer,
+        which is the input of the loss function, which is y_hat
+        '''
         samples = len(dvalues)
         labels = len(dvalues[0])
         dvalues = np.clip(dvalues, 1e-7, 1 - 1e-7)
@@ -95,13 +99,18 @@ class Activation_Softmax_Loss_CategoricalCrossentropy(Loss):
     def forward(self, inputs, y_true):
         self.activation.forward(inputs)
         self.output = self.activation.output
-        self.loss_val = self.loss.calculate(self.output, y_true)
-        return self.loss_val
+        return self.loss.calculate(self.output, y_true)
 
     def backward(self, dvalues, y_true):
         samples = len(dvalues)
         if len(y_true.shape) == 2:
             y_true = np.argmax(y_true, axis=1)
         self.dinputs = dvalues.copy()
+        # y_pred - y_true is the derivative of the loss function with respect to the input of the softmax layer
+        # y_true is always 1. hence
+        # dvalues here IS Y_HAT, THE OUTPUT OF THE LAST LAYER.
         self.dinputs[range(samples), y_true] -= 1
+        # Note that we are dividing by samples here, because we want the mean of the gradients, so that
+        # the optimizer can take a step of learning rate size.
+        # and the learning rate doesn't have to be tuned for the number of samples (more samples, more gradients, need smaller learning rate)
         self.dinputs = self.dinputs/samples

@@ -269,6 +269,8 @@ The math is simple really. We try to do dC/dz_ik= dC/dSxdS/dz, where s is y_hat.
 dL_i/dz_ik = y_hat_ik - y_ik
 
 THIS IS INSANE. THIS IS LITERALLY INSANE. ALL THAT WORK WE DID, WAS FOR NOTHING, no I'm just kidding. But really, given that the softmax activation function is literally stuck to the categorical cross entropy loss, just combine the 2 layers, and the derivative with respect to the straight z outputs of the neurons in backprop is just y_pred-y_true. Boom. Multiple times faster to compute. Literally so easy.
+If you don't believe this (I don't blame you, who am I to tell you what is and isn't true), run `testing.py`. The final dvalues is the same
+for both. The math, is clear.
 
 ## Acknowledgments
 
