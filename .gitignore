@@ -1,5 +1,6 @@
 venv/
 __pycache__/
+experiments/__pycache__/
 *.pyc
 *.pyo
 *.pyd

@@ -4,7 +4,7 @@ from nnfs.datasets import spiral_data
 from dense_layer import *
 from activation_functions import *
 from loss_functions import *
-
+from optimizers import *
 # Initialize the nnfs library, which sets the random seed and other configurations for reproducibility
 nnfs.init()
 
@@ -59,3 +59,25 @@ print('-'*10)
 print("dweights and biases of dense2")
 print(dense2.dweights)
 print(dense2.dbiases)
+print('-'*20)
+
+
+print("weights and biases of dense1")
+print(dense1.weights)
+print(dense1.biases)
+print('-'*10)
+print("weights and biases of dense2")
+print(dense2.weights)
+print(dense2.biases)
+optimizer_sgd = Optimizer_SGD(learning_rate=1.0)
+optimizer_sgd.update_params(dense1)
+optimizer_sgd.update_params(dense2)
+
+print('-'*20)
+print("weights and biases of dense1 after optimizer")
+print(dense1.weights)
+print(dense1.biases)
+print('-'*10)
+print("weights and biases of dense2 after optimizer")
+print(dense2.weights)
+print(dense2.biases)

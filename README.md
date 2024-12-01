@@ -272,6 +272,14 @@ THIS IS INSANE. THIS IS LITERALLY INSANE. ALL THAT WORK WE DID, WAS FOR NOTHING,
 If you don't believe this (I don't blame you, who am I to tell you what is and isn't true), run `testing.py`. The final dvalues is the same
 for both. The math, is clear.
 
+## Optimizers
+
+### Stochastic Gradient Descent (SGD)
+
+This is just a rudimentary optimizer. Decrease the loss by using the calculated gradient to update the weights and biases of the neural network. It takes in a batch of data, and that batch could be 1 sample, or every sample.
+
+Hyperparameters are tunable parameters in machine learning models and optimization algorithms that are set before training begins
+
 ## Acknowledgments
 
 This project is inspired by the book Neural Networks from Scratch in Python by Harrison Kinsley and Daniel Kukieła. Their work provided a foundational understanding and motivated the development of this hands-on implementation. The math intuition would not have been possible without the great work of 3B1B.
