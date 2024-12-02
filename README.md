@@ -340,8 +340,10 @@ A large learning rate can cause a gradient explosion. Causing the output to rise
 Usually, we will want to start with a large learning rate, and then decrease the learning rate over time. So we use a learning rate decay.
 To overcome local minimas, we'll use momentum. Both implementations found in `optimizers.py`. But one can see the effect of
 vanilla sgd, vs sgd with decay and momentum, as follows:
-
-![Vanilla](imgs/vanilla-sgd.jpg)
+<p float="left">
+  <img src="imgs/vanilla-sgd.jpg" alt="Vanilla" style="width: 45%;"/>
+  <img src="imgs/sgd_lr_decay.jpg" alt="Complex" style="width: 45%;"/>
+</p>
 
 ## Acknowledgments
 
