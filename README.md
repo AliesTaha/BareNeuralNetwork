@@ -309,6 +309,35 @@ epoch: 10000,loss: 0.860,accuracy: 0.600
 ```
 
 so we know that, despite the pathetic performance, the network has been trained succesfully. I rest my case...not. There's much to do.
+the rule of thumbs is this: If the loss value is NOT 0, or not very close to 0, but the model stopped learning (accuracy stopped increasing), then we're stuck at a local minimum.
+Training a model multiple times with different initializations does work and increases your chances of finding the global minimum (or a good enough local minimum). However, it's expensive.
+So what do we do?
+
+Well, originally we used to do
+w_(t+1)= w_(t)-l*g(w_t)
+so new weight = current weight - learning rate* gradient of loss function wrt current weight (direction of steepest ascent)
+
+```py
+weights = weights - learning_rate * gradients
+```
+
+What if instead we did:
+
+```py
+velocity = momentum * velocity - learning_rate * gradients
+weights = weights + velocity
+```
+
+So, assuming the first ever velocity starts with a value of 0, and momentum is usually something like 0.9. So what will happen is that weights = weights - learning_rate * gradient. Velocity itself then becomes = - learning_rate*gradient.
+In the next iteration, velocity will become 0.9*prev_velocity - learning rate times the gradient. Here, if the gradient is 0, we still go in the direction of velocity, just at 0.9x the previous rigor.
+
+- If the learning rate is too small, training is slow, and it'll take alot of steps to get to where we want to go.
+- Most times, you need a low learning rate and high momentum.
+- If the learning rate is set too high, the model might not be able to find the global minimum
+
+A large learning rate can cause a gradient explosion. Causing the output to rise with each step, eventually hitting the floating point limit, and stopping the training.
+
+Usually, we will want to start with a large learning rate, and then decrease the learning rate over time. So we use a learning rate decay.
 
 ## Acknowledgments
 
