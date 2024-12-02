@@ -341,7 +341,7 @@ Usually, we will want to start with a large learning rate, and then decrease the
 To overcome local minimas, we'll use momentum. Both implementations found in `optimizers.py`. But one can see the effect of
 vanilla sgd, vs sgd with decay and momentum, as follows:
 
-![Vanilla](images/vanilla-sgd.jpg)
+![Vanilla](imgs/vanilla-sgd.jpg)
 
 ## Acknowledgments
 
