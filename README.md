@@ -343,6 +343,7 @@ vanilla sgd, vs sgd with decay and momentum, as follows:
 <p float="left">
   <img src="imgs/vanilla-sgd.jpg" alt="Vanilla" style="width: 45%;"/>
   <img src="imgs/sgd_lr_decay.jpg" alt="Complex" style="width: 45%;"/>
+  <img src="imgs/perf.jpg" alt="Best" style="width:45%;"/>
 </p>
 
 ## Acknowledgments
