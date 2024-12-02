@@ -338,6 +338,10 @@ In the next iteration, velocity will become 0.9*prev_velocity - learning rate ti
 A large learning rate can cause a gradient explosion. Causing the output to rise with each step, eventually hitting the floating point limit, and stopping the training.
 
 Usually, we will want to start with a large learning rate, and then decrease the learning rate over time. So we use a learning rate decay.
+To overcome local minimas, we'll use momentum. Both implementations found in `optimizers.py`. But one can see the effect of
+vanilla sgd, vs sgd with decay and momentum, as follows:
+
+![Vanilla](images/vanilla-sgd.jpg)
 
 ## Acknowledgments
 

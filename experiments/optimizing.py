@@ -5,6 +5,15 @@ from loss_functions import *
 from dense_layer import *
 from optimizers import *
 
+'''
+# Playing around with decay rate
+starting_learning_rate = 1
+decay = 0.1
+for step in range(20):
+    learning_rate = starting_learning_rate * 1/(decay * step + 1)
+    print(learning_rate)
+'''
+
 nnfs.init()
 X, y = spiral_data(samples=100, classes=3)
 print(X.shape, y.shape)
@@ -18,7 +27,7 @@ dense2 = Dense_Layer(64, 3)
 # Create Softmax classifier's combined loss and activation
 loss_activation = Activation_Softmax_Loss_CategoricalCrossentropy()
 
-optimizer = Optimizer_SGD(learning_rate=0.5)
+optimizer = Optimizer_SGD(learning_rate=1, decay=1e-3, momentum=0.9)
 
 for epoch in range(10001):
     dense1.forward(X)
@@ -32,17 +41,17 @@ for epoch in range(10001):
     accuracy = np.mean(predictions == y)
 
     if epoch % 100 == 0:
-        print(f'epoch: {epoch},' +
-              f'accuracy: {accuracy:.3f},' +
-              f'loss: {loss:.3f}')
+        print(f'epoch: {epoch}, ' +
+              f'accuracy: {accuracy:.3f}, ' +
+              f'loss: {loss:.3f}, ' +
+              f'lr: {optimizer.current_learning_rate}')
 
     loss_activation.backward(loss_activation.output, y)
     dense2.backward(loss_activation.dinputs)
     activation1.backward(dense2.dinputs)
     dense1.backward(activation1.dinputs)
 
+    optimizer.pre_update_params()
     optimizer.update_params(dense1)
     optimizer.update_params(dense2)
-
-
-# Playing around with decay rate
+    optimizer.post_update_params()
