@@ -8,5 +8,5 @@ class Optimizer_SGD:
         self.learning_rate = learning_rate
 
     def update_params(self, layer):
-        layer.weights += -self.learning_rate * layer.dweights
-        layer.biases += -self.learning_rate * layer.dbiases
+        layer.weights -= self.learning_rate * layer.dweights
+        layer.biases -= self.learning_rate * layer.dbiases

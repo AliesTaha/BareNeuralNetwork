@@ -282,7 +282,8 @@ Hyperparameters are tunable parameters in machine learning models and optimizati
 Check out `experiments/optimizing.py` for a very basic implementation of a fully connected neural network. There, we use the optimizer to train a 1x64 densely connected neural network.
 
 The structure is basically an input layer, 300x2, fed into a hidden layer of 2x64, fed into an output layer of 64x3 (3 classes).
-'''py
+
+```py
             Input Layer       Hidden Layer            Output Layer
  300            O                O                       O
  samples        O                O                       O
@@ -296,7 +297,8 @@ The structure is basically an input layer, 300x2, fed into a hidden layer of 2x6
                                  O
                                  O
                                  O
-'''
+```
+
 Training a neural network involves performing forward and backward passes, followed by optimization, over multiple epochs. An epoch is a complete pass through the training data. The goal is to adjust weights and biases to minimize the loss function. Ideally, this would be achieved in one epoch, but typically multiple epochs are needed.
 
 For implementation details, see `experiments/optimizing.py`, but the output should be
