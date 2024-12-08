@@ -376,6 +376,19 @@ praram_update_corrected= param_update/\
 param+= -lr * praram_update_corrected/(sqrt(cache_corrected)+epsilon)
 ```
 
+## Regularization
+
+Regularization reduces generalization error by adding a pemnalty that punishes extremely large weights, which is a sign that the network is trying to memorize instead of learn.
+
+## Loss Function with Regularization
+
+In addition to the data loss, we can add regularization terms to the loss function to penalize large weights and biases. This helps in reducing overfitting and improving the generalization of the model. The regularization terms include L1 and L2 regularization for both weights and biases.
+
+The total loss can be calculated as follows:
+$$
+\[ \text{Total Loss} = \text{Data Loss} + \lambda_1 \sum |\text{weights}| + \lambda_2 \sum \text{weights}^2 + \lambda_3 \sum |\text{biases}| + \lambda_4 \sum \text{biases}^2 \]
+$$
+
 ## Acknowledgments
 
 This project is inspired by the book Neural Networks from Scratch in Python by Harrison Kinsley and Daniel Kukieła. Their work provided a foundational understanding and motivated the development of this hands-on implementation. The math intuition would not have been possible without the great work of 3B1B.
