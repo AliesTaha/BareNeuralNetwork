@@ -128,11 +128,11 @@ But with more samples, the hidden layer will return a list of gradients, a list 
 ```python
 np.dot(dvalues, weights.T)
 #The output of which is a list of nudges, the gradient, of the cost wrt each neuron 
-[dc/dn1, dc/dn2, dc/dn3, dc/dn4]
+[dc/dn1, dc/dn2, dc/dn3]
 #and if theres multiple samples, we'll have
-[dc1/dn1, dc1/dn2, dc1/dn3, dc1/dn4]
-[dc2/dn1, dc2/dn2, dc2/dn3, dc2/dn4]
-[dc3/dn1, dc3/dn2, dc3/dn3, dc3/dn4]
+[dc1/dn1, dc1/dn2, dc1/dn3]
+[dc2/dn1, dc2/dn2, dc2/dn3]
+[dc3/dn1, dc3/dn2, dc3/dn3]
 ...
 #each row represents the derivative, the nudge, of the cost wrt the neuron in the previous layer, for that row#'s sample
 ```
@@ -163,7 +163,7 @@ the above matrix is the gradient matrix of the cost wrt the neuron, we want to f
 ```
 
 so in effect:
-I would want to do a_00*dc0/dn0 + a_10*dc1/dn0 + a_20 * dc2/dn0 to get the overall change to the w_1 of the first neuron, and so on. That is, I want a final matrix of
+I would want to do `dc/dn x dn/dw = dc/dw`, or a_00*dc0/dn0   + a_10*dc1/dn0 + a_20 * dc2/dn0 to get the overall change to the w_1 of the first neuron, and so on. That is, I want a final matrix of
 
 ```python
 [
@@ -346,6 +346,35 @@ vanilla sgd, vs sgd with decay and momentum, as follows:
   <img src="imgs/sgd_lr_decay.jpg" alt="Complex" style="width: 30%;" />
   <img src="imgs/perf.jpg" alt="Best" style="width: 30%;" />
 </div>
+
+We also include the code for ADAM optimizers, as well as techniques for L1 and L2 regularization, and Dropout. Only a summary of each will be provided here.
+
+1- AdaGrad : Normalize the updates made to the features. So if we pushed the gradient of one parameter too much, then it doesn't get as changed. The bigger the sum of the updates is to a parameter, the smaller updates are made in future training. By letting less frequently updated parameters more updated, we let more neurons get used for training.
+
+```py
+cache+=(param_gradient)**2
+param_update= lr* param_gradient/(sqrt(cache)+epsilon)
+```
+
+2- RMS Prop: Similar to AdaGrad, except the cache is calculated differntly. It is
+
+```py
+cache=rho*cache + (1-rho)*(param_gradient)**2
+param_update=lr*param_gradient/(sqrt(cache)+epsilon)
+```
+
+3- Adam: Adaptive Momentum. Most commonly used optimizer. It uses RMS Prop, but also adds the idea of momentum. So there's a 'momentum' idea for cache, beta2, and momentums of weights, beta1. With the understanding that
+
+```py
+cache= beta2*cache + (1-beta2)*(param_gradient)**2
+cache_corrected=cache/ \
+               (1-(beta2^(steps+1)))
+#and weight updates being
+param_update= beta1*param_update + (1-beta1)*(param_gradient)
+praram_update_corrected= param_update/\
+                        (1-(beta1^(steps+1)))
+param+= -lr * praram_update_corrected/(sqrt(cache_corrected)+epsilon)
+```
 
 ## Acknowledgments
 
