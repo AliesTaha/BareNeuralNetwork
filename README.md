@@ -385,10 +385,10 @@ Regularization reduces generalization error by adding a pemnalty that punishes e
 In addition to the data loss, we can add regularization terms to the loss function to penalize large weights and biases. This helps in reducing overfitting and improving the generalization of the model. The regularization terms include L1 and L2 regularization for both weights and biases.
 
 The total loss can be calculated as follows:
-$$
+
 ```python
 Total_Loss = Data_Loss + lambda_1 * sum(abs(weights)) + lambda_2 * sum(weights**2) + lambda_3 * sum(abs(biases)) + lambda_4 * sum(biases**2)
-$$
+```
 
 ## Acknowledgments
 
