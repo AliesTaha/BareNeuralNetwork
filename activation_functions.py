@@ -26,7 +26,7 @@ class Activation_Softmax:
     def backward(self, dvalues):
         '''
         This raises a question — if sample-wise gradients are the Jacobian matrices, how do we perform the chain rule
-        with the gradient back-propagated from the loss function, since it’s a vector for each sample? Also, what do we do with the fact that the previous layer, 
+        with the gradient back-propagated from the loss function, since it's a vector for each sample? Also, what do we do with the fact that the previous layer, 
         which is the Dense layer, will expect the gradients to be a 2D array? Currently, we have a 3D array of the partial derivatives — a list of the Jacobian matrices.
         The derivative of the softmax function is 
         [
