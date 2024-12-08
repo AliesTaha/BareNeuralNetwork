@@ -27,7 +27,8 @@ dense2 = Dense_Layer(64, 3)
 # Create Softmax classifier's combined loss and activation
 loss_activation = Activation_Softmax_Loss_CategoricalCrossentropy()
 
-optimizer = Optimizer_SGD(learning_rate=1, decay=1e-3, momentum=0.9)
+optimizer = Optimizer_Adam(
+    learning_rate=0.05, decay=5e-7)
 
 for epoch in range(10001):
     dense1.forward(X)

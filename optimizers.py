@@ -57,6 +57,7 @@ class Optimizer_AdaGrad:
         self.current_learning_rate = learning_rate
         self.decay = decay
         self.epsilon = epsilon
+        self.iterations = 0
 
     def pre_update_params(self):
         if self.decay:
@@ -88,6 +89,7 @@ class Optimizer_RMSProp:
         self.decay = decay
         self.epsilon = epsilon
         self.rho = rho
+        self.iterations = 0
 
     def pre_update_params(self):
         if self.decay:
@@ -121,6 +123,7 @@ class Optimizer_Adam:
         self.epsilon = epsilon
         self.beta_1 = beta_1
         self.beta_2 = beta_2
+        self.iterations = 0
 
     def pre_update_params(self):
         if self.decay:
