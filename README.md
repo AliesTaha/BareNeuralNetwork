@@ -386,7 +386,8 @@ In addition to the data loss, we can add regularization terms to the loss functi
 
 The total loss can be calculated as follows:
 $$
-\[ \text{Total Loss} = \text{Data Loss} + \lambda_1 \sum |\text{weights}| + \lambda_2 \sum \text{weights}^2 + \lambda_3 \sum |\text{biases}| + \lambda_4 \sum \text{biases}^2 \]
+```python
+Total_Loss = Data_Loss + lambda_1 * sum(abs(weights)) + lambda_2 * sum(weights**2) + lambda_3 * sum(abs(biases)) + lambda_4 * sum(biases**2)
 $$
 
 ## Acknowledgments
