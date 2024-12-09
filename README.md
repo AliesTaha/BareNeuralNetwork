@@ -421,9 +421,16 @@ example_output ​*= ​np.random.binomial(​1​, ​1​-​dropout_rate,
 
 ## Types of Neural Networks
 
+### Classification Networks
+
+What the class of something is?
  • Binary logistic regression: One output neuron gives a probability between 0 and 1. You’re answering a simple yes/no question (like cat or not cat).
  • Logistic regression (general case): It can deal with two or more categories, but it’s usually implemented with one neuron per category, and each output is treated independently (not normalized to add up to 1 like softmax).
  • Softmax classification: Specifically designed for multiple categories. It has one neuron for each class, but it forces all probabilities to sum to 1. This is great when you need to decide on exactly one category (like picking the number between 0 and 10).
+
+### Regression Networks
+
+What the value is?
 
 ## Acknowledgments
 
