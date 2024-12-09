@@ -400,7 +400,7 @@ Dropout is a regularization technique used to prevent overfitting in neural netw
 
 The basic idea is to randomly "drop out" (i.e., set to zero) a fraction of the neurons during each forward and backward pass. This can be thought of as training an ensemble of many different networks, where each network is a subset of the original network.
 
-### Co-adaptation
+### Co-adoption
 
 Co-adaptation refers to the phenomenon where neurons in a neural network become overly reliant on the outputs of other neurons. This can lead to poor generalization performance, as the network may not learn to extract useful features independently. Dropout helps to mitigate co-adaptation by ensuring that neurons cannot rely on the presence of specific other neurons during training.
 
@@ -418,6 +418,12 @@ Note that the dropout ratio is the ratio of neurons we intend to disable. So to 
 example_output ​*= ​np.random.binomial(​1​, ​1​-​dropout_rate,
                                        example_output.shape)
 ```
+
+## Types of Neural Networks
+
+ • Binary logistic regression: One output neuron gives a probability between 0 and 1. You’re answering a simple yes/no question (like cat or not cat).
+ • Logistic regression (general case): It can deal with two or more categories, but it’s usually implemented with one neuron per category, and each output is treated independently (not normalized to add up to 1 like softmax).
+ • Softmax classification: Specifically designed for multiple categories. It has one neuron for each class, but it forces all probabilities to sum to 1. This is great when you need to decide on exactly one category (like picking the number between 0 and 10).
 
 ## Acknowledgments
 
