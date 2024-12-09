@@ -53,6 +53,16 @@ class Activation_Sigmoid:
         self.dinputs = dvalues * (1 - self.output) * self.output
 
 
+# linear activation for the output layer of a regression network, added for completeness
+class Activation_Linear:
+    def forward(self, inputs):
+        self.inputs = inputs
+        self.output = inputs
+
+    def backward(self, dvalues):
+        self.dinputs = dvalues
+
+
 '''
 soft = Activation_Softmax()
 soft.forward(np.array([
