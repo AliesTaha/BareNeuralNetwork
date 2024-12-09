@@ -392,6 +392,33 @@ Total_Loss = Data_Loss + lambda_1 * sum(abs(weights)) + \
             sum(abs(biases)) + lambda_4 * sum(biases**2)
 ```
 
+## Dropout and Noise
+
+### Dropout
+
+Dropout is a regularization technique used to prevent overfitting in neural networks. During training, dropout randomly sets a fraction of the input units to zero at each update. This prevents the network from becoming too reliant on any particular neuron and encourages the network to learn more robust features.
+
+The basic idea is to randomly "drop out" (i.e., set to zero) a fraction of the neurons during each forward and backward pass. This can be thought of as training an ensemble of many different networks, where each network is a subset of the original network.
+
+### Co-adaptation
+
+Co-adaptation refers to the phenomenon where neurons in a neural network become overly reliant on the outputs of other neurons. This can lead to poor generalization performance, as the network may not learn to extract useful features independently. Dropout helps to mitigate co-adaptation by ensuring that neurons cannot rely on the presence of specific other neurons during training.
+
+### Noise
+
+Adding noise to the inputs or weights of a neural network during training can also help to prevent overfitting. Noise can be thought of as a form of data augmentation, where the training data is artificially varied to improve the robustness of the model.
+
+### Dropout Forward and Backward Pass
+
+The forward pass with dropout involves randomly setting a fraction of the input units to zero. The backward pass involves scaling the gradients to account for the dropped units.
+
+Note that the dropout ratio is the ratio of neurons we intend to disable. So to apply dropout we would do:
+
+```py
+example_output ​*= ​np.random.binomial(​1​, ​1​-​dropout_rate,
+                                       example_output.shape)
+```
+
 ## Acknowledgments
 
 This project is inspired by the book Neural Networks from Scratch in Python by Harrison Kinsley and Daniel Kukieła. Their work provided a foundational understanding and motivated the development of this hands-on implementation. The math intuition would not have been possible without the great work of 3B1B.
